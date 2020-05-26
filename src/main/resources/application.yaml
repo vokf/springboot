@@ -1,0 +1,38 @@
+#utf-8
+spring:
+  # 配置数据源
+  datasource:
+    url: jdbc:mysql://localhost:3306/work?useSSL=false&serverTimezone=UTC
+    password: 123456
+    username: java
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  #配置模板
+  thymeleaf:
+    cache: false
+    mode: HTML
+  mvc:
+    view:
+      suffix: .html
+      prefix: classpath:/templates/
+    static-path-pattern: /**
+  # 配置字符集
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+mybatis:
+  type-aliases-package: cn.edu.svtcc.entity
+  check-config-location: true
+#logging:
+#  level:
+#    root : debug
+#    cn.edu.svtcc.controller : info
+#    cn.edu.svtcc.service : info
+#  pattern:
+#    console:  "%d - %msg%n"
+server:
+  port: 8080
