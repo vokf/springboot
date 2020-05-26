@@ -6,6 +6,12 @@ spring:
     password: 123456
     username: java
     driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      max-active: 20
+      initial-size: 5
+      min-idle: 5
+
+    type: com.alibaba.druid.pool.DruidDataSource
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
@@ -25,14 +31,10 @@ spring:
       force: true
       enabled: true
 mybatis:
+
   type-aliases-package: cn.edu.svtcc.entity
   check-config-location: true
-#logging:
-#  level:
-#    root : debug
-#    cn.edu.svtcc.controller : info
-#    cn.edu.svtcc.service : info
-#  pattern:
-#    console:  "%d - %msg%n"
+
 server:
   port: 8080
+
