@@ -1,5 +1,7 @@
 package cn.edu.svtcc.entity;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +13,8 @@ import java.io.Serializable;
  * @description
  * @date 2020/05/25/21:49
  */
-
+@Getter
+@Setter
 @Component
 public class ResultBean implements Serializable {
     private Object data;
@@ -24,57 +27,12 @@ public class ResultBean implements Serializable {
         this.code = SUCCESS;
         this.data = data;
     }
-    public Object getData() {
-        return data;
-    }
-
-    public static int getSUCCESS() {
-        return SUCCESS;
-    }
-
-    public static int getFAIL() {
-        return FAIL;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
-
-    public static void setSUCCESS(int SUCCESS) {
-        ResultBean.SUCCESS = SUCCESS;
-    }
-
-    public static void setFAIL(int FAIL) {
-        ResultBean.FAIL = FAIL;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
 
     public ResultBean() {
         this.code = SUCCESS;
     }
-    public static ResultBean success(@NonNull Object data) {
-        ResultBean rb = new ResultBean(data);
-        rb.setMessage("success");
-        rb.setCode(SUCCESS);
-        return rb;
-    }
 
-
+    @NonNull
     public static ResultBean success() {
         ResultBean rb = new ResultBean();
         rb.setMessage("success");
@@ -82,6 +40,7 @@ public class ResultBean implements Serializable {
         return rb;
     }
 
+    @NonNull
     public static ResultBean fail() {
         ResultBean rb = new ResultBean();
         rb.setMessage("fail");
