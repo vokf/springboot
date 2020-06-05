@@ -89,10 +89,10 @@ public class UserController {
 
     @RequestMapping("/findUserByUserName")
     public ResultBean findUserByUserName(@RequestBody String json) {
-
+        //强制转换
         String userName = (String) JSON.parse(json);
         User user = this.service.selectByUserName(userName);
-        return user != null ? ResultBean.success(user) : ResultBean.fail();
+        return user != null ? ResultBean.success() : ResultBean.fail();
     }
 
     @RequestMapping("/total")
@@ -117,6 +117,13 @@ public class UserController {
             return ResultBean.fail();
         }
     }
+
+    /**
+     * 更新用户
+     * @param request request
+     * @param response response
+     * @return result
+     */
     @ResponseBody
     @RequestMapping("/updateUserName")
     public ResultBean updateUserName(HttpServletRequest request, HttpServletResponse response){
