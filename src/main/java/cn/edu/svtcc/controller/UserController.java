@@ -38,9 +38,10 @@ public class UserController {
         this.service = service;
     }
 
+    @NonNull
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResultBean login(@NonNull @RequestBody(required = true) String json, @NonNull HttpServletRequest request,@NonNull HttpServletResponse response) {
+    public ResultBean login(@NonNull @RequestBody(required = true) String json, @NonNull HttpServletRequest request, @NonNull HttpServletResponse response) {
         log.info("进入验证");
         //将从页面传来的json转换成users
         User users = JSON.parseObject(json, User.class);
@@ -54,6 +55,7 @@ public class UserController {
         log.info("登录成功");
         return bean;
     }
+
 
     @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -103,6 +105,7 @@ public class UserController {
 
     /**
      * 删除用户
+     *
      * @param userId userId
      * @return ResultBean
      */
@@ -120,16 +123,17 @@ public class UserController {
 
     /**
      * 更新用户
-     * @param request request
+     *
+     * @param request  request
      * @param response response
      * @return result
      */
     @ResponseBody
     @RequestMapping("/updateUserName")
-    public ResultBean updateUserName(HttpServletRequest request, HttpServletResponse response){
+    public ResultBean updateUserName(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html;charset=UTF-8");
         int id = Integer.parseInt(request.getParameter("userId"));
-        System.out.println("id"+id);
+        System.out.println("id" + id);
         String userName = request.getParameter("userName");
         String passWord = request.getParameter("password");
         User user = new User();
@@ -137,10 +141,9 @@ public class UserController {
         user.setUserId(id);
         user.setPassWord(passWord);
         int i = service.updateUser(user);
-        if (i>0){
+        if (i > 0) {
             return ResultBean.success();
-        }
-        else {
+        } else {
             return ResultBean.fail();
         }
 
