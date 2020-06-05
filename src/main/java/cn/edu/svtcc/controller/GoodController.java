@@ -23,16 +23,15 @@ import java.util.List;
 
 /**
  * 对商品进行管理
+ * 允许跨域
  * @author demo
  * @title GoodController
  * @description
  * @date 2020/05/26/7:24
  */
 @Slf4j
-// 事务
 @Transactional(rollbackFor = Exception.class)
 @Controller
-// 允许跨域访问
 @CrossOrigin
 public class GoodController {
     /**
@@ -81,6 +80,7 @@ public class GoodController {
 
     /**
      * 查询数据库里面的所有
+     *
      * @return List
      */
     @ResponseBody
@@ -92,6 +92,7 @@ public class GoodController {
 
     /**
      * 用于获取数据库表 goods的行数
+     *
      * @return int
      */
     @RequestMapping("/totalGood")
@@ -103,14 +104,17 @@ public class GoodController {
     /**
      * 删除数据库中的数据
      * 通过id删除
+     *
      * @param id id
      * @return ResultBean
      */
     @ResponseBody
     @RequestMapping("/deleteGood")
     public ResultBean deleteUser(Integer id) {
-
+        // 直接获取到id
+        // 调用 servioce中的方法
         int i = service.deleteGood(id);
+        // 通过返回值进行判断
         if (i > 0) {
             return ResultBean.success();
         } else {
@@ -120,15 +124,21 @@ public class GoodController {
 
     /**
      * 添加商品
-     * @param request HttpServletRequest
+     *
+     * @param request  HttpServletRequest
      * @param response HttpServletResponse
      * @return ResultBean
      */
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.GET)
-    public ResultBean add(HttpServletRequest request, HttpServletResponse response) {
+    public ResultBean add(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response) {
+        // 设置 字符集
         response.setContentType("html/text;charset=utf-8");
+        //创建 Good对象
         Good good = new Good();
+        /**
+         * 获取参数
+         */
         String goodName = request.getParameter("goodName");
         good.setGoodName(goodName);
         int goodPrice = Integer.parseInt(request.getParameter("goodPrice"));
@@ -152,9 +162,13 @@ public class GoodController {
     @RequestMapping(value = "/addItem", method = RequestMethod.POST)
     public ResultBean addItem(@RequestBody String json) {
         System.out.println(json);
+        //强制转换成Good
         Good good = JSON.parseObject(json, Good.class);
+        //进行数据库操作
         int i = this.service.addGood(good);
+        //通过返回值判断是否成功
         if (i > 0) {
+            //返回成功
             return ResultBean.success();
         } else {
             return ResultBean.fail();
