@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
 
@@ -17,13 +18,32 @@ import java.io.Serializable;
 @Setter
 @ToString
 @NoArgsConstructor
+@Slf4j
 public class Good implements Serializable {
-    private static final long serialVersionUID = 1L;
+    /**
+     * id
+     */
     private Integer id;
+    /**
+     * goodName
+     */
     private String goodName;
+    /**
+     * goodPrice
+     */
     private Integer goodPrice;
+    /**
+     * goodImage
+     */
     private String goodImage;
+    /**
+     * brand
+     */
+    private String brand;
+    /**
+     * hotGood
+     */
     private String hotGood;
 
-
+    private static final long serialVersionUID = 1L;
 }
