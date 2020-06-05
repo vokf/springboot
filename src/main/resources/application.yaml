@@ -2,26 +2,43 @@
 spring:
   # 配置数据源
   datasource:
+    # url
     url: jdbc:mysql://localhost:3306/work?useSSL=false&serverTimezone=UTC
     password: 123456
     username: java
     driver-class-name: com.mysql.cj.jdbc.Driver
+    # 连接池
     druid:
       max-active: 20
       initial-size: 5
       min-idle: 5
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: select 1 from dual
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,wall
+      max-pool-prepared-statement-per-connection-size: 20
+      connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+      use-global-data-source-stat: true
 
     type: com.alibaba.druid.pool.DruidDataSource
+
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
   #配置模板
   thymeleaf:
+    # 不使用缓存
     cache: false
     mode: HTML
   mvc:
     view:
       suffix: .html
+      # 模板目录
       prefix: classpath:/templates/
     static-path-pattern: /**
   # 配置字符集
@@ -30,11 +47,17 @@ spring:
       charset: UTF-8
       force: true
       enabled: true
-mybatis:
 
+mybatis:
   type-aliases-package: cn.edu.svtcc.entity
   check-config-location: true
+  mapper-locations: classpath:mapper/*.xml
 
 server:
-  port: 8080
+  port: 8090
+
+#pagehelper:
+#  dialect: mysql
+#  reasonable: true
+#  support-methods-arguments: true
 
