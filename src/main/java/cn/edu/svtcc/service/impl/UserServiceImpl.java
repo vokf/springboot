@@ -36,43 +36,78 @@ public class UserServiceImpl implements UserService {
     /**
      *
      * 查询所有
-     * @return
+     * @return List
+     *
      */
     @Override
     public List<User> findAll() {
         return mapper.findAll();
     }
 
+    /**
+     * 通过id查询
+     * @param userId userId
+     * @return user
+     */
     @Override
     public User findByUserId(Integer userId) {
         return mapper.findByUserId(userId);
     }
 
+    /**
+     * 登录方法
+     * @param users user
+     * @return user
+     */
     @Override
     public User login(User users) {
         return mapper.login(users);
     }
 
+    /**
+     * 注册方法
+     * @param users user
+     * @return int
+     */
     @Override
     public int register(User users) {
         return mapper.register(users);
     }
 
+    /**
+     * 更新用户
+     * @param users users
+     * @return int
+     */
     @Override
     public int updateUser(User users) {
         return mapper.updateUser(users);
     }
 
+    /**
+     * 删除 通过id
+     * @param ids id
+     * @return int
+     */
     @Override
     public int deleteUser(int ids) {
         return mapper.deleteUser(ids);
     }
 
+    /**
+     * 查询所有数据的条数
+     * @return int
+     */
     @Override
     public int findTotalUser() {
         return mapper.findTotalUser();
     }
 
+    /**
+     * 查询 用户
+     * @param userName name
+     * @return
+     */
     @Override
     public User selectByUserName(String userName) {
         return mapper.selectByUserName(userName);
