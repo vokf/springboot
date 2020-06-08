@@ -18,9 +18,21 @@ import java.io.Serializable;
 @Component
 public class ResultBean implements Serializable {
     private Object data;
+    /**
+     * 定义成功
+     */
     private static int SUCCESS = 1;
+    /**
+     * 定义失败
+     */
     private static int FAIL = 0;
+    /**
+     * 成功返回的 success
+     */
     private String message = "success";
+    /**
+     * 返回的code
+     */
     private int code;
 
     public ResultBean(Object data) {
@@ -32,6 +44,10 @@ public class ResultBean implements Serializable {
         this.code = SUCCESS;
     }
 
+    /**
+     * 向前台返回成功
+     * @return success
+     */
     @NonNull
     public static ResultBean success() {
         ResultBean rb = new ResultBean();
@@ -40,11 +56,16 @@ public class ResultBean implements Serializable {
         return rb;
     }
 
+    /**
+     * 向前台返回失败
+     * @return fail
+     */
     @NonNull
     public static ResultBean fail() {
         ResultBean rb = new ResultBean();
         rb.setMessage("fail");
         rb.setCode(FAIL);
+
         return rb;
     }
 }
