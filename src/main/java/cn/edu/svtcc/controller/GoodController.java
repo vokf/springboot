@@ -14,7 +14,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,8 +32,9 @@ import java.util.List;
  */
 @Slf4j
 @Transactional(rollbackFor = Exception.class)
-@Controller
+
 @CrossOrigin
+@RestController
 public class GoodController {
     /**
      * 用到GoodService
@@ -83,7 +85,7 @@ public class GoodController {
      *
      * @return List
      */
-    @ResponseBody
+
     @RequestMapping("/findAll")
     public List<Good> findAll() {
         log.info("查询所有");
@@ -96,7 +98,7 @@ public class GoodController {
      * @return int
      */
     @RequestMapping("/totalGood")
-    @ResponseBody
+
     public int totalUser() {
         return this.service.findTotalGoods();
     }
@@ -108,11 +110,11 @@ public class GoodController {
      * @param id id
      * @return ResultBean
      */
-    @ResponseBody
+
     @RequestMapping("/deleteGood")
     public ResultBean deleteUser(Integer id) {
         // 直接获取到id
-        // 调用 servioce中的方法
+        // 调用 service中的方法
         int i = service.deleteGood(id);
         // 通过返回值进行判断
         if (i > 0) {
@@ -129,7 +131,7 @@ public class GoodController {
      * @param response HttpServletResponse
      * @return ResultBean
      */
-    @ResponseBody
+
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public ResultBean add(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response) {
         // 设置 字符集
@@ -158,7 +160,7 @@ public class GoodController {
 
     }
 
-    @ResponseBody
+
     @RequestMapping(value = "/addItem", method = RequestMethod.POST)
     public ResultBean addItem(@RequestBody String json) {
         System.out.println(json);
@@ -173,6 +175,12 @@ public class GoodController {
         } else {
             return ResultBean.fail();
         }
+    }
+
+    @RequestMapping("findGood")
+    public Good findByName(String goodName){
+
+        return service.findGoodByName(goodName);
     }
 
 }
