@@ -7,13 +7,14 @@ import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,9 +27,10 @@ import java.util.List;
  * @date 2020/05/25/21:46
  */
 @CrossOrigin
-@Controller
+
 @Slf4j
 @Transactional(rollbackFor = Exception.class)
+@RestController
 public class UserController {
 
     UserService service;
@@ -39,7 +41,7 @@ public class UserController {
     }
 
     @NonNull
-    @ResponseBody
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResultBean login(@NonNull @RequestBody(required = true) String json, @NonNull HttpServletRequest request, @NonNull HttpServletResponse response) {
         log.info("进入验证");
@@ -57,7 +59,7 @@ public class UserController {
     }
 
 
-    @ResponseBody
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResultBean register(@RequestBody String json) {
         System.out.println(json);
@@ -72,33 +74,23 @@ public class UserController {
 
     }
 
-    @RequestMapping("/index2")
-    public String index() {
-        return "userLogin";
-    }
 
     /**
      * 查询所有
      *
      * @return user
      */
-    @ResponseBody
+
     @RequestMapping(value = "/findAllUser", method = RequestMethod.GET)
     public List<User> findAllUser() {
         return service.findAll();
     }
 
 
-    @RequestMapping("/findUserByUserName")
-    public ResultBean findUserByUserName(@RequestBody String json) {
-        //强制转换
-        String userName = (String) JSON.parse(json);
-        User user = this.service.selectByUserName(userName);
-        return user != null ? ResultBean.success() : ResultBean.fail();
-    }
+
 
     @RequestMapping("/total")
-    @ResponseBody
+
     public int totalUser() {
         return this.service.findTotalUser();
     }
@@ -109,7 +101,7 @@ public class UserController {
      * @param userId userId
      * @return ResultBean
      */
-    @ResponseBody
+
     @RequestMapping("/deleteUser")
     public ResultBean deleteUser(Integer userId) {
 
@@ -128,7 +120,7 @@ public class UserController {
      * @param response response
      * @return result
      */
-    @ResponseBody
+
     @RequestMapping("/updateUserName")
     public ResultBean updateUserName(HttpServletRequest request, HttpServletResponse response) {
         response.setContentType("text/html;charset=UTF-8");
@@ -147,5 +139,10 @@ public class UserController {
             return ResultBean.fail();
         }
 
+    }
+
+    @RequestMapping("/findUserByName")
+    public User findUserByUserName( String userName) {
+        return this.service.selectByUserName(userName);
     }
 }
