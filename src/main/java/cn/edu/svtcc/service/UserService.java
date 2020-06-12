@@ -1,5 +1,6 @@
 package cn.edu.svtcc.service;
 
+import cn.edu.svtcc.entity.PageVO;
 import cn.edu.svtcc.entity.User;
 import org.apache.ibatis.annotations.Param;
 
@@ -26,7 +27,6 @@ public interface UserService {
      * @param userId userId
      * @return user
      */
-
     User findByUserId(@Param("userId") Integer userId);
 
     /**
@@ -41,22 +41,22 @@ public interface UserService {
      *
      * @param users user
      */
-    void register(User users);
+    int register(User users);
 
     /**
      * 更新用户信息
      *
      * @param users users
      */
-    void updateUser(User users);
+    int updateUser(User users);
 
     /**
      * 删除用户
      *
-     * @param ids id
+     * @param
      */
 
-    void deleteUser(int[] ids);
+    int deleteUser(int id);
 
     /**
      * 查询用户总的数量
@@ -66,5 +66,13 @@ public interface UserService {
 
     int findTotalUser();
 
+    /**
+     *
+     * @param userName userName
+     * @return
+     */
     User selectByUserName(@Param("userName") String userName);
+
+
+
 }
