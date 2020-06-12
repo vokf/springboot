@@ -3,6 +3,7 @@ package cn.edu.svtcc.mapper;
 import cn.edu.svtcc.entity.Good;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -85,4 +86,18 @@ public interface GoodMapper {
     })
     @Insert("insert into goods values (null,#{goodName},#{goodPrice},null,#{brand},#{hotGood} )")
     int addGood(Good good);
+
+    /**
+     * 通过商品名字查询
+     * @param goodName
+     * @return
+     */
+    @Results({
+            @Result(column = "good_name", property = "goodName"),
+            @Result(column = "good_price", property = "goodPrice"),
+            @Result(column = "good_image", property = "goodImage"),
+            @Result(column = "hot", property = "hotGood")
+    })
+    @Select("select * from goods where good_name = #{goodName}")
+    Good findGoodByName(@Param("goodName") String goodName);
 }
