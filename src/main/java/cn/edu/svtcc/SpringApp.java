@@ -3,10 +3,11 @@ package cn.edu.svtcc;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
+ * 启动类
  * @author demo
  * @title SpringBootApplication
  * @description
@@ -15,8 +16,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
  */
 @Transactional(rollbackFor = Exception.class)
 @SpringBootApplication
-@MapperScan("cn.edu.svtcc.mapper")
-@CrossOrigin
+@MapperScan(basePackages = "cn.edu.svtcc.mapper")
+
+@ServletComponentScan
 public class SpringApp {
     public static void main(String[] args) {
         SpringApplication.run(SpringApp.class,args);
