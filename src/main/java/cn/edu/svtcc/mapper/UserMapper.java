@@ -85,5 +85,8 @@ public interface UserMapper {
     User selectByUserName(@Param("userName") String userName);
 
 
+    @Select("select * from user where userName = #{userName}")
+    List<User>  selectByUserList(@Param("userName") String userName);
+
 
 }
