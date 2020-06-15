@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -141,8 +142,18 @@ public class UserController {
 
     }
 
+
     @RequestMapping("/findUserByName")
+
     public User findUserByUserName( String userName) {
         return this.service.selectByUserName(userName);
+    }
+
+
+
+    @RequestMapping("/findUserList")
+
+    public List<User> findUserByList( String userName) {
+        return this.service.selectByUserList(userName);
     }
 }
