@@ -183,4 +183,22 @@ public class GoodController {
         return service.findGoodByName(goodName);
     }
 
+    @RequestMapping(value = "/updateGood" ,method = RequestMethod.POST)
+    public ResultBean updateGood(@RequestBody String json){
+        Good good = JSON.parseObject(json, Good.class);
+        int i = service.updateGood(good);
+        if (i > 0) {
+            //返回成功
+            return ResultBean.success();
+        } else {
+            return ResultBean.fail();
+        }
+    }
+
+    @RequestMapping("findList")
+    public List<Good> findByNameList(String goodName){
+
+        return service.findGoodList(goodName);
+    }
+
 }
