@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -100,4 +101,28 @@ public interface GoodMapper {
     })
     @Select("select * from goods where good_name = #{goodName}")
     Good findGoodByName(@Param("goodName") String goodName);
+
+
+    /**
+     * 更新账户密码
+     * @param good g
+     * @return int
+     */
+    @Results({
+            @Result(column = "good_name", property = "goodName"),
+            @Result(column = "good_price", property = "goodPrice"),
+            @Result(column = "good_image", property = "goodImage"),
+            @Result(column = "hot", property = "hotGood")
+    })
+    @Update("update goods set good_Name=#{goodName},good_price=#{goodPrice},brand=#{brand},hot=#{hotGood} where id=#{id}  ")
+    int updateGood(Good good);
+
+    @Results({
+            @Result(column = "good_name", property = "goodName"),
+            @Result(column = "good_price", property = "goodPrice"),
+            @Result(column = "good_image", property = "goodImage"),
+            @Result(column = "hot", property = "hotGood")
+    })
+    @Select("select * from goods where good_name = #{goodName}")
+    List<Good> findGoodList(@Param("goodName") String goodName);
 }
